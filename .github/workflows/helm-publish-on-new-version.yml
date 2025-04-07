@@ -60,8 +60,8 @@ jobs:
             if [ -z "${pkg:-}" ]; then
               break
             fi
-            CHART_NAME=$(echo ${pkg} | grep -oP '^.*?(?=-[0-9])')
-            CHART_VERSION=$(echo ${pkg} | grep -Po '(?<=-)[0-9][^/]*?(?=\.tgz)')
+            CHART_NAME=$(echo ${pkg##*/} | grep -oP '^.*?(?=-[0-9])')
+            CHART_VERSION=$(echo ${pkg##*/} | grep -Po '(?<=-)[0-9][^/]*?(?=\.tgz)')
             echo $CHART_NAME
             echo $CHART_VERSION
             helm show all "oci://ghcr.io/${GITHUB_REPOSITORY_OWNER}/${CHART_NAME}" --version "$CHART_VERSION"
