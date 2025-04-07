@@ -62,6 +62,7 @@ jobs:
             fi
             CHART_NAME=$(echo ${pkg} | grep -oP "^.*?(?=-[0-9])")
             CHART_VERSION=$(echo ${pkg} | grep -Po '(?<=-)[0-9][^/]*?(?=\.tgz)')
+            helm show all "oci://ghcr.io/${GITHUB_REPOSITORY_OWNER}/${CHART_NAME}" --version "$CHART_VERSION"
             if helm show all "oci://ghcr.io/${GITHUB_REPOSITORY_OWNER}/${CHART_NAME}" --version "$CHART_VERSION" > /dev/null 2>&1; then
               echo "Helm chart $CHART_NAME with version $CHART_VERSION already exist."
             else
